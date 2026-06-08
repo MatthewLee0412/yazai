@@ -1,3 +1,9 @@
 spring:
   application:
     name: yazai
+
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true

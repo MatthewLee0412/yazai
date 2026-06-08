@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新生宝宝信息管理系统</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark">BB</div>
+            <div>
+                <h1>宝宝健康档案</h1>
+                <p>新生儿信息管理</p>
+            </div>
+        </div>
+        <nav class="nav-list" aria-label="主导航">
+            <button class="nav-item is-active" data-view="dashboard">总览</button>
+            <button class="nav-item" data-view="profile">宝宝档案</button>
+            <button class="nav-item" data-view="growth">成长记录</button>
+            <button class="nav-item" data-view="vaccine">疫苗管理</button>
+            <button class="nav-item" data-view="medical">就医记录</button>
+            <button class="nav-item" data-view="insurance">保险管理</button>
+        </nav>
+    </aside>
+
+    <main class="main-panel">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">MVP v1</p>
+                <h2 id="pageTitle">总览</h2>
+            </div>
+            <button class="primary-btn" id="refreshBtn">刷新数据</button>
+        </header>
+
+        <section class="view is-active" id="dashboardView">
+            <div class="summary-grid" id="summaryGrid"></div>
+            <div class="content-grid">
+                <section class="panel panel-wide">
+                    <div class="panel-head">
+                        <h3>成长趋势</h3>
+                    </div>
+                    <div class="chart-wrap">
+                        <svg id="growthChart" role="img" aria-label="宝宝身高体重变化曲线"></svg>
+                    </div>
+                </section>
+                <section class="panel">
+                    <div class="panel-head">
+                        <h3>近期提醒</h3>
+                    </div>
+                    <div id="reminderList" class="reminder-list"></div>
+                </section>
+            </div>
+        </section>
+
+        <section class="view" id="profileView">
+            <section class="panel">
+                <div class="panel-head">
+                    <h3>宝宝档案</h3>
+                    <span class="hint">基础信息</span>
+                </div>
+                <form id="babyForm" class="form-grid"></form>
+            </section>
+        </section>
+
+        <section class="view" id="growthView">
+            <section class="panel">
+                <div class="panel-head">
+                    <h3>成长记录</h3>
+                    <button class="ghost-btn" data-reset-form="growthForm">新增记录</button>
+                </div>
+                <form id="growthForm" class="form-grid"></form>
+            </section>
+            <section class="panel">
+                <div class="panel-head">
+                    <h3>记录列表</h3>
+                </div>
+                <div class="table-wrap" id="growthTable"></div>
+            </section>
+        </section>
+
+        <section class="view" id="vaccineView">
+            <section class="panel">
+                <div class="panel-head">
+                    <h3>接种记录</h3>
+                    <button class="ghost-btn" data-reset-form="vaccineForm">新增接种</button>
+                </div>
+                <form id="vaccineForm" class="form-grid"></form>
+            </section>
+            <section class="panel">
+                <div class="panel-head">
+                    <h3>宝宝接种进度</h3>
+                </div>
+                <div class="table-wrap" id="vaccineRecordTable"></div>
+            </section>
+            <section class="panel">
+                <div class="panel-head">
+                    <h3>疫苗计划模板</h3>
+                    <span class="hint">参考图片初始化</span>
+                </div>
+                <div class="table-wrap" id="vaccineTemplateTable"></div>
+            </section>
+        </section>
+
+        <section class="view" id="medicalView">
+            <section class="panel">
+                <div class="panel-head">
+                    <h3>就医记录</h3>
+                    <button class="ghost-btn" data-reset-form="medicalForm">新增记录</button>
+                </div>
+                <form id="medicalForm" class="form-grid"></form>
+            </section>
+            <section class="panel">
+                <div class="panel-head">
+                    <h3>记录列表</h3>
+                </div>
+                <div class="table-wrap" id="medicalTable"></div>
+            </section>
+        </section>
+
+        <section class="view" id="insuranceView">
+            <section class="panel">
+                <div class="panel-head">
+                    <h3>保险信息</h3>
+                    <button class="ghost-btn" data-reset-form="insuranceForm">新增保单</button>
+                </div>
+                <form id="insuranceForm" class="form-grid"></form>
+            </section>
+            <section class="panel">
+                <div class="panel-head">
+                    <h3>保单列表</h3>
+                </div>
+                <div class="table-wrap" id="insuranceTable"></div>
+            </section>
+        </section>
+    </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="/app.js"></script>
+</body>
+</html>

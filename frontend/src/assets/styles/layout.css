@@ -1,0 +1,141 @@
+.app-shell {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    min-height: 100vh;
+}
+
+/* ---- Sidebar ---- */
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 24px 18px;
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+}
+
+.brand {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.brand-mark {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius);
+    background: var(--brand-mark);
+    color: var(--brand-text);
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.brand p {
+    margin: 0;
+    color: #a7f3d0;
+    font-size: 13px;
+}
+
+.nav-list {
+    display: grid;
+    gap: 8px;
+}
+
+.nav-item {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    background: transparent;
+    color: #dffdf8;
+    text-align: left;
+    transition: background var(--transition), border-color var(--transition);
+}
+
+.nav-item:hover,
+.nav-item.is-active {
+    background: var(--sidebar-hover);
+    border-color: var(--sidebar-hover-border);
+}
+
+/* ---- Main Panel ---- */
+.main-panel {
+    min-width: 0;
+    padding: 24px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.topbar h2 {
+    margin: 2px 0 0;
+    font-size: 28px;
+}
+
+.eyebrow {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1080px) {
+    .app-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: static;
+        height: auto;
+    }
+
+    .nav-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .summary-grid,
+    .content-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 680px) {
+    .main-panel {
+        padding: 16px;
+    }
+
+    .topbar,
+    .panel-head {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .summary-grid,
+    .content-grid,
+    .form-grid,
+    .nav-list {
+        grid-template-columns: 1fr;
+    }
+
+    table {
+        min-width: 720px;
+    }
+}

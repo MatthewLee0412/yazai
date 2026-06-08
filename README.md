@@ -1,127 +1,155 @@
-# Yazai
+# Yazai 新生宝宝信息管理系统
 
-![Java](https://img.shields.io/badge/Java-21-007396?style=flat-square&logo=openjdk&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.14-6DB33F?style=flat-square&logo=springboot&logoColor=white)
-![Maven](https://img.shields.io/badge/Maven-Wrapper-C71A36?style=flat-square&logo=apachemaven&logoColor=white)
-![Status](https://img.shields.io/badge/Status-In%20Development-f59e0b?style=flat-square)
+Yazai 是一个面向家庭使用的新生宝宝信息管理系统，用来集中记录宝宝档案、成长变化、疫苗接种、就医记录和保险信息。
 
-Yazai 是一个基于 **Spring Boot 3** 和 **Java 21** 构建的后端服务项目。项目当前处于早期开发阶段，已经具备标准的 Spring Boot 工程结构，可作为后续 REST API、业务服务、数据访问层和 Web 能力的基础骨架。
+当前项目已经完成第一期 MVP：后端提供 REST API 和本地 JSON 持久化，前端提供独立 Vue 管理界面，也保留了一份 Spring Boot 静态页面版本。
 
-## 项目亮点
+## 功能范围
 
-- **现代 Java 技术栈**：使用 Java 21 与 Spring Boot 3.5，适合构建稳定、可维护的后端服务。
-- **开箱即用的 Web 能力**：集成 `spring-boot-starter-web`，可快速扩展 RESTful API。
-- **Maven Wrapper 支持**：无需全局安装指定 Maven 版本，直接通过 `./mvnw` 构建和运行。
-- **Lombok 预配置**：减少样板代码，便于后续实体类、DTO、配置类开发。
-- **清晰工程结构**：保持 Spring Boot 默认分层习惯，后续扩展成本低。
+- 宝宝档案：姓名、性别、出生日期、出生医院、出生身高体重、血型、过敏史、监护人信息。
+- 成长记录：身高、体重、头围、测量日期、备注，并支持成长趋势展示。
+- 疫苗管理：内置 0-6 岁疫苗计划模板，支持记录计划日期、实际接种日期、接种地点、批号、医生和状态。
+- 就医记录：医院、科室、医生、症状、诊断、用药、费用、复诊日期和备注。
+- 保险管理：保险公司、保险名称、保单号、保障范围、生效/到期日期、保费、理赔记录。
+- 首页总览：展示宝宝年龄、最新成长数据、待接种疫苗、保险到期和近期提醒。
 
 ## 技术栈
 
-| 类型 | 技术 |
+| 模块 | 技术 |
 | --- | --- |
-| 语言 | Java 21 |
-| 框架 | Spring Boot 3.5.14 |
-| 构建工具 | Maven Wrapper |
-| Web | Spring MVC / Servlet |
-| 测试 | Spring Boot Test / JUnit |
-| 工具库 | Lombok |
+| 后端 | Java 21, Spring Boot 3.5.14 |
+| 构建 | Maven |
+| 前端 | Vue 3, Vite, Pinia, Vue Router, Chart.js |
+| 持久化 | 本地 JSON 文件 `data/yazai-store.json` |
+| 测试 | Spring Boot Test, JUnit |
 
-## 快速开始
+## 目录结构
 
-### 环境要求
+```text
+yazai
+├── src/main/java/com/bkq/yazai
+│   ├── controller      # REST API
+│   ├── model           # 业务数据模型
+│   ├── service         # 业务逻辑和本地持久化
+│   ├── store           # JSON 存储状态对象
+│   └── YazaiApplication.java
+├── src/main/resources
+│   ├── static          # Spring Boot 静态页面版本
+│   └── application.yaml
+├── frontend            # Vue 前端工程
+├── data                # 本地运行数据，已忽略，不要提交
+├── pom.xml
+└── README.md
+```
+
+## 后端运行
+
+环境要求：
 
 - JDK 21+
-- Git
+- Maven 3.9+
 
-> 项目已包含 Maven Wrapper，因此本地无需额外安装 Maven。
-
-### 克隆项目
+运行测试：
 
 ```bash
-git clone <your-repository-url>
-cd yazai
+mvn test
 ```
 
-### 运行应用
+启动后端：
 
 ```bash
-./mvnw spring-boot:run
+mvn spring-boot:run
 ```
 
-应用启动后默认监听：
+或先打包再运行：
+
+```bash
+mvn package -DskipTests
+java -jar target/yazai-0.0.1-SNAPSHOT.jar
+```
+
+默认地址：
 
 ```text
 http://localhost:8080
 ```
 
-### 运行测试
+说明：当前仓库的 `mvnw.cmd` 在部分 Windows PowerShell 环境可能因为 `Path/PATH` 环境变量冲突无法启动。如果遇到该问题，可先使用本机 Maven 的 `mvn` 命令。
+
+## 前端运行
+
+进入前端目录：
 
 ```bash
-./mvnw test
+cd frontend
+npm install
+npm run dev
 ```
 
-### 打包构建
-
-```bash
-./mvnw clean package
-```
-
-构建产物将生成在：
+默认前端地址：
 
 ```text
-target/
+http://localhost:5173
 ```
 
-## 项目结构
+开发环境下，`frontend/vite.config.js` 会把 `/api` 请求代理到：
 
 ```text
-yazai
-├── src
-│   ├── main
-│   │   ├── java
-│   │   │   └── com/bkq/yazai
-│   │   │       └── YazaiApplication.java
-│   │   └── resources
-│   │       └── application.yaml
-│   └── test
-│       └── java
-│           └── com/bkq/yazai
-│               └── YazaiApplicationTests.java
-├── pom.xml
-├── mvnw
-└── mvnw.cmd
+http://localhost:8080
 ```
 
-## 配置说明
+因此本地联调时需要先启动后端。
 
-当前应用名称配置在 `src/main/resources/application.yaml`：
-
-```yaml
-spring:
-  application:
-    name: yazai
-```
-
-后续可以在这里继续补充端口、数据库、缓存、日志、第三方服务等配置。
-
-## 开发路线
-
-- [ ] 添加基础 REST API
-- [ ] 设计业务模块分层
-- [ ] 接入数据库与持久化框架
-- [ ] 增加统一异常处理
-- [ ] 增加接口参数校验
-- [ ] 完善单元测试和集成测试
-- [ ] 补充部署说明
-
-## 贡献方式
-
-欢迎提交 Issue 或 Pull Request 来完善项目。建议在提交代码前先运行：
+构建前端：
 
 ```bash
-./mvnw test
+cd frontend
+npm run build
 ```
 
-## License
+## 数据与隐私
 
-当前项目尚未声明开源协议。发布到 GitHub 前，建议根据实际需要补充 `LICENSE` 文件。
+系统会在首次启动时生成本地数据文件：
+
+```text
+data/yazai-store.json
+```
+
+这个文件会保存宝宝档案、就医记录、保单号等真实家庭数据，已经通过 `.gitignore` 忽略，不能提交到 Git。
+
+同样不要提交以下内容：
+
+- `data/`
+- `target/`
+- `frontend/node_modules/`
+- `frontend/dist/`
+- `*.log`
+- `*.local`
+- 任何包含真实手机号、身份证号、保单号、就诊资料、API Key、Token、密码的文件
+
+## 提交前检查
+
+提交前建议执行：
+
+```bash
+git status --short
+git status --ignored --short
+rg -n -i "(password|secret|token|api[_-]?key|access[_-]?key|private[_-]?key|authorization|bearer|jdbc:|mysql://|postgres://|mongodb://|redis://|BEGIN PRIVATE)" . -g "!frontend/node_modules/**" -g "!frontend/dist/**" -g "!target/**" -g "!data/**"
+mvn test
+```
+
+正常情况下，`data/`、`target/`、`frontend/node_modules/`、`frontend/dist/` 应该只出现在 ignored 列表里，不应该出现在待提交文件中。
+
+## 主要接口
+
+| 方法 | 路径 | 说明 |
+| --- | --- | --- |
+| `GET` | `/api/dashboard` | 首页总览 |
+| `GET/PUT` | `/api/baby` | 宝宝档案 |
+| `GET/POST` | `/api/growth-records` | 成长记录 |
+| `GET/POST` | `/api/medical-visits` | 就医记录 |
+| `GET` | `/api/vaccine-templates` | 疫苗计划模板 |
+| `GET/POST` | `/api/vaccine-records` | 宝宝接种记录 |
+| `GET/POST` | `/api/insurance-policies` | 保险记录 |
+
+带 `{id}` 的记录接口支持 `PUT` 更新和 `DELETE` 删除。
